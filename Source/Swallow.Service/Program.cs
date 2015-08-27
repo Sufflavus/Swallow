@@ -4,7 +4,6 @@ using Nelibur.ServiceModel.Services;
 using Nelibur.ServiceModel.Services.Default;
 using Swallow.Contracts;
 
-
 namespace Swallow.Service
 {
     internal class Program
@@ -13,7 +12,7 @@ namespace Swallow.Service
 
         private static void ConfigureService()
         {
-            NeliburRestService.Configure(x => x.Bind<PutMailCommand, MailProcessor>());
+            NeliburRestService.Configure(x => x.Bind<PutMailCommand, MailHandler>());
         }
 
         private static void Main(string[] args)

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Swallow.Service
+namespace Swallow.BusinessLogic
 {
     public sealed class Mail
     {

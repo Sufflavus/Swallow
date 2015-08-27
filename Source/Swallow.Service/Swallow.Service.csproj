@@ -55,8 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mail.cs" />
-    <Compile Include="MailProcessor.cs" />
+    <Compile Include="MailHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,6 +64,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Swallow.BusinessLogic\Swallow.BusinessLogic.csproj">
+      <Project>{D4BA5DAF-88D6-4967-B2E6-65484855C5ED}</Project>
+      <Name>Swallow.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Swallow.Contracts\Swallow.Contracts.csproj">
       <Project>{d0bf71bd-d4a9-471b-b571-583a0d692e7e}</Project>
       <Name>Swallow.Contracts</Name>

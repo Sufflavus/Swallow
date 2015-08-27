@@ -1,11 +1,12 @@
 ﻿using System.Text;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
-namespace Swallow.BusinessLogic
+namespace Swallow.BusinessLogic.Queue
 {
-    public sealed class MailManager
+    public sealed class Receiver
     {
-        public void Enqueue()
+        public void Dequeue()
         {
             var factory = new ConnectionFactory {HostName = "localhost"};
             using (IConnection connection = factory.CreateConnection())
@@ -18,13 +19,15 @@ namespace Swallow.BusinessLogic
                                          autoDelete: false,
                                          arguments: null);
 
-                    string message = "Hello World!";
-                    byte[] body = Encoding.UTF8.GetBytes(message);
-
-                    channel.BasicPublish(exchange: "",
-                                         routingKey: "hello",
-                                         basicProperties: null,
-                                         body: body);
+                    var consumer = new EventingBasicConsumer(channel);
+                    consumer.Received += (model, ea) =>
+                        {
+                            byte[] body = ea.Body;
+                            string message = Encoding.UTF8.GetString(body);
+                        };
+                    channel.BasicConsume(queue: "hello",
+                                         noAck: true,
+                                         consumer: consumer);
                 }
             }
         }

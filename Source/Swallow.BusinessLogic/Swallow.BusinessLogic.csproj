@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MailManager.cs" />
+    <Compile Include="Mail.cs" />
     <Compile Include="MailProcessor.cs" />
+    <Compile Include="Queue\Sender.cs" />
+    <Compile Include="Queue\Receiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
