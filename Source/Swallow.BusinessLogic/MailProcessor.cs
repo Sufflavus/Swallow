@@ -4,7 +4,7 @@ namespace Swallow.BusinessLogic
 {
     public sealed class MailProcessor
     {
-        public void Process(Mail mailData)
+        public static void Process(Mail mailData)
         {
             var email = new MailMessage
                 {
