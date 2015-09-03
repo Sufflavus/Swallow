@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Mail.cs" />
     <Compile Include="MailProcessor.cs" />
+    <Compile Include="QueueManager.cs" />
     <Compile Include="QueueSettings.cs" />
     <Compile Include="Queue\Sender.cs" />
     <Compile Include="Queue\Receiver.cs" />
