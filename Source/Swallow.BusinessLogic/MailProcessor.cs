@@ -1,10 +1,11 @@
 ﻿using System.Net.Mail;
+using Swallow.BusinessLogic.Interfaces;
 
 namespace Swallow.BusinessLogic
 {
-    public sealed class MailProcessor
+    public sealed class MailProcessor : IMailProcessor
     {
-        public static void Process(Mail mailData)
+        public void Process(Mail mailData)
         {
             var email = new MailMessage
                 {

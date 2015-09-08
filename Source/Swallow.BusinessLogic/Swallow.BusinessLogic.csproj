@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IMailProcessor.cs" />
+    <Compile Include="Interfaces\IQueueManager.cs" />
     <Compile Include="Mail.cs" />
     <Compile Include="MailProcessor.cs" />
     <Compile Include="QueueManager.cs" />

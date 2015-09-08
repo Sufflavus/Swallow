@@ -2,11 +2,14 @@
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Swallow.BusinessLogic.Interfaces;
 
 namespace Swallow.BusinessLogic
 {
-    public sealed class QueueManager
+    public sealed class QueueManager : IQueueManager
     {
+        public IMailProcessor MailProcessor = new MailProcessor();
+
         public void Enqueue(Mail mail)
         {
             var factory = new ConnectionFactory {HostName = QueueSettings.HostName};
@@ -55,7 +58,7 @@ namespace Swallow.BusinessLogic
             }
         }
 
-        private static void OnReceived(object model, BasicDeliverEventArgs ea)
+        private void OnReceived(object model, BasicDeliverEventArgs ea)
         {
             byte[] body = ea.Body;
             string message = Encoding.UTF8.GetString(body);
