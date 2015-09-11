@@ -8,7 +8,12 @@ namespace Swallow.BusinessLogic
 {
     public sealed class QueueManager : IQueueManager
     {
-        public IMailProcessor MailProcessor = new MailProcessor();
+        private readonly IMailProcessor _mailProcessor;
+
+        public QueueManager(IMailProcessor mailProcessor)
+        {
+            _mailProcessor = mailProcessor;
+        }
 
         public void Enqueue(Mail mail)
         {
@@ -63,7 +68,7 @@ namespace Swallow.BusinessLogic
             byte[] body = ea.Body;
             string message = Encoding.UTF8.GetString(body);
             var mail = JsonConvert.DeserializeObject<Mail>(message);
-            MailProcessor.Process(mail);
+            _mailProcessor.Process(mail);
             //TODO: undelivered messages
         }
     }
