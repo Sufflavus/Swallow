@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.Client", "Source\Sw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.BusinessLogic", "Source\Swallow.BusinessLogic\Swallow.BusinessLogic.csproj", "{D4BA5DAF-88D6-4967-B2E6-65484855C5ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swallow.UnitTests", "Source\Swallow.UnitTests\Swallow.UnitTests.csproj", "{FA07095A-AD64-4EE5-A2BF-4810F7C4662E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{D4BA5DAF-88D6-4967-B2E6-65484855C5ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4BA5DAF-88D6-4967-B2E6-65484855C5ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4BA5DAF-88D6-4967-B2E6-65484855C5ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA07095A-AD64-4EE5-A2BF-4810F7C4662E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA07095A-AD64-4EE5-A2BF-4810F7C4662E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA07095A-AD64-4EE5-A2BF-4810F7C4662E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA07095A-AD64-4EE5-A2BF-4810F7C4662E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
