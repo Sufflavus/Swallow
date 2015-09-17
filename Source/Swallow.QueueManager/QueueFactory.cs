@@ -1,56 +1,43 @@
-﻿using System;
-using System.Text;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 
 namespace Swallow.QueueManager
 {
-    public class QueueFactory
+    public class QueueFactory : IQueueFactory
     {
-        public QueueWrapper CreateSender(string name)
+        public QueueWrapper CreateSender(string queueName)
         {
-            var factory = new ConnectionFactory { HostName = QueueSettings.HostName };
-            using (IConnection connection = factory.CreateConnection())
-            {
-                using (IModel channel = connection.CreateModel())
-                {
-                    channel.QueueDeclare(queue: name,
-                                         durable: false,
-                                         exclusive: false,
-                                         autoDelete: false,
-                                         arguments: null);
-                    return new QueueWrapper(channel);
-                }
-            }
+            var factory = new ConnectionFactory {HostName = QueueSettings.HostName};
+            IConnection connection = factory.CreateConnection();
+            IModel channel = connection.CreateModel();
+
+            channel.QueueDeclare(queue: queueName,
+                                 durable: false,
+                                 exclusive: false,
+                                 autoDelete: false,
+                                 arguments: null);
+
+            return new QueueWrapper(connection, channel);
         }
 
-        public QueueWrapper CreateReceiver(string name)
+        public QueueWrapper CreateReceiver(string queueName)
         {
-            var factory = new ConnectionFactory { HostName = QueueSettings.HostName };
-            using (IConnection connection = factory.CreateConnection())
-            {
-                using (IModel channel = connection.CreateModel())
-                {
-                    channel.QueueDeclare(queue: name,
-                                         durable: false,
-                                         exclusive: false,
-                                         autoDelete: false,
-                                         arguments: null);
+            var factory = new ConnectionFactory {HostName = QueueSettings.HostName};
+            IConnection connection = factory.CreateConnection();
+            IModel channel = connection.CreateModel();
 
-                    var consumer = new QueueingBasicConsumer(channel);
+            channel.QueueDeclare(queue: queueName,
+                                 durable: false,
+                                 exclusive: false,
+                                 autoDelete: false,
+                                 arguments: null);
 
-                    channel.BasicConsume(queue: name,
-                                         noAck: true,
-                                         consumer: consumer);
+            var consumer = new QueueingBasicConsumer(channel);
 
-                    return new QueueWrapper(channel);
-                }
-            }
-        }
+            channel.BasicConsume(queue: queueName,
+                                 noAck: true,
+                                 consumer: consumer);
 
-        private IModel CreateChannel(string queueName)
-        {
-            throw new NotImplementedException();
+            return new QueueWrapper(connection, channel, consumer);
         }
     }
 }

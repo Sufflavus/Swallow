@@ -6,76 +6,47 @@ using RabbitMQ.Client.Events;
 
 namespace Swallow.QueueManager
 {
-    public class QueueWrapper
+    public class QueueWrapper : IDisposable
     {
         private readonly IModel _channel;
+        private readonly IConnection _connection;
+        private readonly QueueingBasicConsumer _consumer;
 
-        public QueueWrapper(IModel channel)
+        public QueueWrapper(IConnection connection, IModel channel)
         {
+            _connection = connection;
             _channel = channel;
         }
 
-        public void Enqueue(string queueName, QueueItemEntity entity)
+        public QueueWrapper(IConnection connection, IModel channel, QueueingBasicConsumer consumer)
+            : this(connection, channel)
         {
-            var factory = new ConnectionFactory { HostName = QueueSettings.HostName };
-            using (IConnection connection = factory.CreateConnection())
-            {
-                using (IModel channel = connection.CreateModel())
-                {
-                    channel.QueueDeclare(queue: queueName,
-                                         durable: false,
-                                         exclusive: false,
-                                         autoDelete: false,
-                                         arguments: null);
-
-                    string jsonEntity = JsonConvert.SerializeObject(entity);
-                    byte[] body = Encoding.UTF8.GetBytes(jsonEntity);
-
-                    channel.BasicPublish(exchange: "",
-                                         routingKey: queueName,
-                                         basicProperties: null,
-                                         body: body);
-                }
-            }
+            _consumer = consumer;
         }
 
-        public void InitializeQueueListener(string queueName, Action onDeque)
+        public void Dispose()
         {
-            var factory = new ConnectionFactory { HostName = QueueSettings.HostName };
-            using (IConnection connection = factory.CreateConnection())
-            {
-                using (IModel channel = connection.CreateModel())
-                {
-                    channel.QueueDeclare(queue: queueName,
-                                         durable: false,
-                                         exclusive: false,
-                                         autoDelete: false,
-                                         arguments: null);
-
-                    var consumer = new QueueingBasicConsumer(channel);
-
-                    channel.BasicConsume(queue: queueName,
-                                         noAck: true,
-                                         consumer: consumer);
-
-                    while (true)
-                    {
-                        var ea = consumer.Queue.Dequeue();
-                        byte[] body = ea.Body;
-                        string jsonEntity = Encoding.UTF8.GetString(body);
-                        //var mail = JsonConvert.DeserializeObject<Mail>(jsonEntity);
-                    }
-                }
-            }
+            _channel.Dispose();
+            _connection.Dispose();
         }
 
-        /*private void OnReceived(object model, BasicDeliverEventArgs ea)
+        public void Enqueue<T>(string queueName, T entity) where T : QueueItemEntity
         {
-            byte[] body = ea.Body;
-            string message = Encoding.UTF8.GetString(body);
-            var mail = JsonConvert.DeserializeObject<Mail>(message);
-            _mailProcessor.Process(mail);
-            //TODO: undelivered messages
-        }*/
+            string jsonMail = JsonConvert.SerializeObject(entity);
+            byte[] body = Encoding.UTF8.GetBytes(jsonMail);
+
+            _channel.BasicPublish(exchange: "",
+                                  routingKey: queueName,
+                                  basicProperties: null,
+                                  body: body);
+        }
+
+        public T Dequeue<T>() where T : QueueItemEntity
+        {
+            BasicDeliverEventArgs eventArgs = _consumer.Queue.Dequeue();
+            byte[] body = eventArgs.Body;
+            string jsonEntity = Encoding.UTF8.GetString(body);
+            return JsonConvert.DeserializeObject<T>(jsonEntity);
+        }
     }
 }
