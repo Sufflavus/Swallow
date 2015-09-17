@@ -1,0 +1,1 @@
+RabbitMQ Installing on Windows (manual): https://www.rabbitmq.com/install-windows-manual.html
