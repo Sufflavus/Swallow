@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using Swallow.QueueManager;
 
 namespace Swallow.BusinessLogic
 {
-    public sealed class Mail
+    public sealed class Mail : QueueItemEntity
     {
         public string Body { get; set; }
         public List<string> Receivers { get; set; }

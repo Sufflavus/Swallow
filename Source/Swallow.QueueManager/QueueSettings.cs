@@ -1,6 +1,6 @@
 ﻿namespace Swallow.QueueManager
 {
-    public static class QueueSettings
+    internal static class QueueSettings
     {
         public const string HostName = "localhost";
     }

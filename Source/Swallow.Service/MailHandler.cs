@@ -12,7 +12,7 @@ namespace Swallow.Service
     public sealed class MailHandler : IPutOneWay<PutMailCommand>
     {
         private static readonly List<Mail> _mails = new List<Mail>();
-        private readonly IQueueManager _queueManager;
+        private readonly IQueueSender _queueSender;
 
         public MailHandler()
         {
@@ -21,15 +21,14 @@ namespace Swallow.Service
             IKernel kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
             //var _mailProcessor = kernel.Get<IMailProcessor>();
-            _queueManager = kernel.Get<IQueueManager>();
-            _queueManager.InitializeQueueListener();
+            _queueSender = kernel.Get<IQueueSender>();
         }
 
         public void PutOneWay(PutMailCommand request)
         {
             var mail = TinyMapper.Map<Mail>(request);
             _mails.Add(mail);
-            _queueManager.Enqueue(mail);
+            _queueSender.Enqueue(mail);
         }
     }
 }

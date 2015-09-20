@@ -1,10 +1,11 @@
 ﻿using RabbitMQ.Client;
+using Swallow.QueueManager.Interfaces;
 
 namespace Swallow.QueueManager
 {
     public class QueueFactory : IQueueFactory
     {
-        public QueueWrapper CreateSender(string queueName)
+        public IQueueWrapper CreateSender(string queueName)
         {
             var factory = new ConnectionFactory {HostName = QueueSettings.HostName};
             IConnection connection = factory.CreateConnection();
@@ -19,7 +20,7 @@ namespace Swallow.QueueManager
             return new QueueWrapper(connection, channel);
         }
 
-        public QueueWrapper CreateReceiver(string queueName)
+        public IQueueWrapper CreateReceiver(string queueName)
         {
             var factory = new ConnectionFactory {HostName = QueueSettings.HostName};
             IConnection connection = factory.CreateConnection();

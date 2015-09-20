@@ -9,7 +9,7 @@ namespace Swallow.Service
         public override void Load()
         {
             Bind<IMailProcessor>().To<MailProcessor>();
-            Bind<IQueueManager>().To<QueueManager>();
+            Bind<IQueueSender>().To<QueueSender>();
         }
     }
 }

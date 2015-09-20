@@ -1,45 +1,26 @@
-﻿using System.Text;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using Swallow.BusinessLogic.Interfaces;
+﻿using Swallow.BusinessLogic.Interfaces;
+using Swallow.QueueManager.Interfaces;
 
 namespace Swallow.BusinessLogic
 {
-    public sealed class QueueManager : IQueueManager
+    public sealed class QueueSender : IQueueSender
     {
-        private readonly IMailProcessor _mailProcessor;
+        private readonly IQueueFactory _factory;
 
-        public QueueManager(IMailProcessor mailProcessor)
+        public QueueSender(IQueueFactory queueFactory)
         {
-            _mailProcessor = mailProcessor;
+            _factory = queueFactory;
         }
 
         public void Enqueue(Mail mail)
         {
-            var factory = new ConnectionFactory {HostName = QueueSettings.HostName};
-            using (IConnection connection = factory.CreateConnection())
+            using (IQueueWrapper queue = _factory.CreateSender(QueueSettings.QueueName))
             {
-                using (IModel channel = connection.CreateModel())
-                {
-                    channel.QueueDeclare(queue: QueueSettings.QueueName,
-                                         durable: false,
-                                         exclusive: false,
-                                         autoDelete: false,
-                                         arguments: null);
-
-                    string jsonMail = JsonConvert.SerializeObject(mail);
-                    byte[] body = Encoding.UTF8.GetBytes(jsonMail);
-
-                    channel.BasicPublish(exchange: "",
-                                         routingKey: QueueSettings.RoutingKey,
-                                         basicProperties: null,
-                                         body: body);
-                }
+                queue.Enqueue(QueueSettings.QueueName, mail);
             }
         }
 
-        public void InitializeQueueListener()
+        /*public void InitializeQueueListener()
         {
             var factory = new ConnectionFactory {HostName = QueueSettings.HostName};
             using (IConnection connection = factory.CreateConnection())
@@ -70,6 +51,6 @@ namespace Swallow.BusinessLogic
             var mail = JsonConvert.DeserializeObject<Mail>(message);
             _mailProcessor.Process(mail);
             //TODO: undelivered messages
-        }
+        }*/
     }
 }

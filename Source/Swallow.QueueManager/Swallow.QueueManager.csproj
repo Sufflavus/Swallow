@@ -47,7 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IQueueFactory.cs" />
+    <Compile Include="Interfaces\IQueueFactory.cs" />
+    <Compile Include="Interfaces\IQueueWrapper.cs" />
     <Compile Include="QueueFactory.cs" />
     <Compile Include="QueueItemEntity.cs" />
     <Compile Include="QueueSettings.cs" />

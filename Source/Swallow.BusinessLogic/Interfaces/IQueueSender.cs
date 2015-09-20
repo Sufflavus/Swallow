@@ -1,8 +1,7 @@
 ﻿namespace Swallow.BusinessLogic.Interfaces
 {
-    public interface IQueueManager
+    public interface IQueueSender
     {
         void Enqueue(Mail mail);
-        void InitializeQueueListener();
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Swallow.QueueManager.Interfaces;
 
 namespace Swallow.QueueManager
 {
-    public class QueueWrapper : IDisposable
+    public class QueueWrapper : IQueueWrapper
     {
         private readonly IModel _channel;
         private readonly IConnection _connection;

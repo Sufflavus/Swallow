@@ -52,15 +52,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IMailProcessor.cs" />
-    <Compile Include="Interfaces\IQueueManager.cs" />
+    <Compile Include="Interfaces\IQueueSender.cs" />
     <Compile Include="Mail.cs" />
     <Compile Include="MailProcessor.cs" />
-    <Compile Include="QueueManager.cs" />
+    <Compile Include="QueueSender.cs" />
     <Compile Include="QueueSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Swallow.QueueManager\Swallow.QueueManager.csproj">
+      <Project>{B07B5F60-0ECC-410E-9FF5-3FCCE3D6E0CB}</Project>
+      <Name>Swallow.QueueManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
