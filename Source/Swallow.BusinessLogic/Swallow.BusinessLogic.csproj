@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IQueueReceiver.cs" />
+    <Compile Include="QueueReceiver.cs" />
     <Compile Include="Interfaces\IMailProcessor.cs" />
     <Compile Include="Interfaces\IQueueSender.cs" />
     <Compile Include="Mail.cs" />
