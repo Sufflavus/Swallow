@@ -56,10 +56,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\QueueSenderTests.cs" />
+    <Compile Include="Mocks\QueueFactoryMock.cs" />
+    <Compile Include="BusinessLogic\QueueReceiverTests.cs" />
+    <Compile Include="Mocks\QueueWrapperMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Swallow.BusinessLogic\Swallow.BusinessLogic.csproj">
+      <Project>{d4ba5daf-88d6-4967-b2e6-65484855c5ed}</Project>
+      <Name>Swallow.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Swallow.QueueManager\Swallow.QueueManager.csproj">
+      <Project>{B07B5F60-0ECC-410E-9FF5-3FCCE3D6E0CB}</Project>
+      <Name>Swallow.QueueManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
