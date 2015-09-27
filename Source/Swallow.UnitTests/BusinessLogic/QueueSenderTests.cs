@@ -20,6 +20,7 @@ namespace Swallow.UnitTests.BusinessLogic
 
             factory.Verify(x => x.CreateSender(QueueSettings.QueueName));
             queueWrapper.Verify(x => x.Enqueue(QueueSettings.QueueName, mail));
+            Assert.True(true);
         }
     }
 }
