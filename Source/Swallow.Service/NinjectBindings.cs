@@ -1,6 +1,8 @@
 ﻿using Ninject.Modules;
 using Swallow.BusinessLogic;
 using Swallow.BusinessLogic.Interfaces;
+using Swallow.QueueManager;
+using Swallow.QueueManager.Interfaces;
 
 namespace Swallow.Service
 {
@@ -10,6 +12,7 @@ namespace Swallow.Service
         {
             Bind<IMailProcessor>().To<MailProcessor>();
             Bind<IQueueSender>().To<QueueSender>();
+            Bind<IQueueFactory>().To<QueueFactory>();
         }
     }
 }

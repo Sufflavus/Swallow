@@ -58,6 +58,10 @@
       <Project>{d4ba5daf-88d6-4967-b2e6-65484855c5ed}</Project>
       <Name>Swallow.BusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Swallow.QueueManager\Swallow.QueueManager.csproj">
+      <Project>{b07b5f60-0ecc-410e-9ff5-3fcce3d6e0cb}</Project>
+      <Name>Swallow.QueueManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

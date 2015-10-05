@@ -7,6 +7,11 @@ namespace Swallow.BusinessLogic
 {
     public sealed class Mail : QueueItemEntity
     {
+        public Mail()
+        {
+            Receivers = new List<string>();
+        }
+
         public string Body { get; set; }
         public List<string> Receivers { get; set; }
         public string Sender { get; set; }
