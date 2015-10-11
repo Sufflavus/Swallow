@@ -11,7 +11,6 @@ namespace Swallow.Service
 {
     public sealed class MailHandler : IPutOneWay<PutMailCommand>
     {
-        private static readonly List<Mail> _mails = new List<Mail>();
         private readonly IQueueSender _queueSender;
 
         public MailHandler()
@@ -27,7 +26,6 @@ namespace Swallow.Service
         public void PutOneWay(PutMailCommand request)
         {
             var mail = TinyMapper.Map<Mail>(request);
-            _mails.Add(mail);
             _queueSender.Enqueue(mail);
         }
     }
