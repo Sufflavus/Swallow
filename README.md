@@ -11,3 +11,6 @@ Self-study application for sending e-mails.
 6. [Json.NET](http://www.newtonsoft.com/json)
 7. [xUnit](https://github.com/xunit/xunit)
 8. [Moq](http://www.moqthis.com)
+
+## LICENSE
+[The MIT License](https://github.com/Sufflavus/Swallow/blob/master/LICENSE)
